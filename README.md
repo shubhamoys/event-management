@@ -1,98 +1,223 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Event Management System API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+A REST API for managing attendees, events, speakers, and registrations built with NestJS, MySQL/MariaDB, and Sequelize ORM.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Project Setup
 
-## Description
-
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
-
-## Project setup
+### 1. Clone the Repository
 
 ```bash
-$ npm install
+git clone git@github.com:shubhamoys/event-management.git
+cd event-management-backend
 ```
 
-## Compile and run the project
+### 2. Configure Environment Variables
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+cp .env.example .env
 ```
 
-## Run tests
+Update the `.env` file with your database credentials:
+
+```env
+PORT=3000
+DB_HOST=localhost
+DB_PORT=3306
+DB_USERNAME=root
+DB_PASSWORD=your_password
+DB_DATABASE=event_management
+DB_DIALECT=mysql
+```
+
+### 3. Create Database
+
+```sql
+CREATE DATABASE event_management;
+```
+
+### 4. Install Dependencies
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+npm install
 ```
 
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+### 5. Run Database Seeders
 
 ```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+npm run seed
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+### 6. Start the Application
 
-## Resources
+```bash
+# Development mode with watch
+npm run start:dev
 
-Check out a few resources that may come in handy when working with NestJS:
+# Production mode
+npm run build
+npm run start:prod
+```
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+The API will be available at `http://localhost:3000`
 
-## Support
+## Project Overview
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+### Database Schema
 
-## Stay in touch
+**attendees**
+| Column | Type | Description |
+|--------|------|-------------|
+| id | INTEGER | Primary Key, Auto Increment |
+| name | VARCHAR | Attendee name |
+| email | VARCHAR | Attendee email |
+| createdAt | TIMESTAMP | Creation timestamp |
+| updatedAt | TIMESTAMP | Update timestamp |
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+**events**
+| Column | Type | Description |
+|--------|------|-------------|
+| id | INTEGER | Primary Key, Auto Increment |
+| title | VARCHAR | Event title |
+| description | TEXT | Event description |
+| start_date | DATE | Event start date |
+| end_date | DATE | Event end date |
+| createdAt | TIMESTAMP | Creation timestamp |
+| updatedAt | TIMESTAMP | Update timestamp |
 
-## License
+**speakers**
+| Column | Type | Description |
+|--------|------|-------------|
+| id | INTEGER | Primary Key, Auto Increment |
+| name | VARCHAR | Speaker name |
+| email | VARCHAR | Speaker email |
+| createdAt | TIMESTAMP | Creation timestamp |
+| updatedAt | TIMESTAMP | Update timestamp |
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+**registrations**
+| Column | Type | Description |
+|--------|------|-------------|
+| id | INTEGER | Primary Key, Auto Increment |
+| attendee_id | INTEGER | Foreign Key to attendees |
+| event_id | INTEGER | Foreign Key to events |
+| registered_at | TIMESTAMP | Registration timestamp |
+| createdAt | TIMESTAMP | Creation timestamp |
+| updatedAt | TIMESTAMP | Update timestamp |
+
+**event_speakers**
+| Column | Type | Description |
+|--------|------|-------------|
+| id | INTEGER | Primary Key, Auto Increment |
+| event_id | INTEGER | Foreign Key to events |
+| speaker_id | INTEGER | Foreign Key to speakers |
+| createdAt | TIMESTAMP | Creation timestamp |
+| updatedAt | TIMESTAMP | Update timestamp |
+
+### Project Structure
+
+```
+src/
+├── app-modules/              # Application modules
+│   ├── attendees/           # Attendees module
+│   │   ├── entities/
+│   │   ├── dto/
+│   │   ├── attendees.controller.ts
+│   │   ├── attendees.service.ts
+│   │   └── attendees.module.ts
+│   ├── events/              # Events module
+│   ├── registrations/       # Registrations module
+│   ├── speakers/            # Speakers module
+│   └── event-speakers/      # Event-Speakers module
+│
+├── shared/                   # Shared resources
+│   ├── config/              # Configuration files
+│   ├── constants/           # Constants and response helpers
+│   └── seeders/             # Database seeders
+│
+├── app.module.ts            # Root module
+├── app.controller.ts        # Root controller
+├── app.service.ts           # Root service
+└── main.ts                  # Application entry point
+```
+
+## API Endpoints
+
+### 1. Get Attendee Dashboard
+
+```http
+GET /attendees/:id/dashboard
+```
+
+**Description:** Returns a specific attendee's dashboard showing all events they registered for and the speakers assigned to each event.
+
+**Response:**
+
+```json
+{
+  "status": true,
+  "message": "Attendee dashboard retrieved successfully",
+  "status_code": 200,
+  "data": {
+    "attendee": {
+      "name": "Rohit Sharma",
+      "email": "rohit@example.com"
+    },
+    "events": [
+      {
+        "title": "Tech Innovation 2025",
+        "description": "A deep dive into modern tech trends",
+        "start_date": "2025-11-20",
+        "end_date": "2025-11-22",
+        "speakers": [
+          {
+            "name": "Dr. Neha Verma",
+            "email": "neha.verma@example.com"
+          },
+          {
+            "name": "Amit Khanna",
+            "email": "amit.k@example.com"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+### 2. Get Speaker's Attendees
+
+```http
+GET /speakers/:id/attendees
+```
+
+**Description:** Returns a specific speaker's details along with all events they're speaking at and the attendees registered for those events.
+
+**Response:**
+
+```json
+{
+  "status": true,
+  "message": "Speaker attendees retrieved successfully",
+  "status_code": 200,
+  "data": {
+    "speaker": {
+      "name": "Amit Khanna",
+      "email": "amit.k@example.com"
+    },
+    "events": [
+      {
+        "title": "Tech Innovation 2025",
+        "attendees": [
+          {
+            "name": "Rohit Sharma",
+            "email": "rohit@example.com"
+          },
+          {
+            "name": "Virat Kohli",
+            "email": "virat@example.com"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
